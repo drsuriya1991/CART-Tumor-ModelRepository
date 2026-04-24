@@ -31,7 +31,7 @@ CART-Tumor-ModelRepository/
 │                               #   KB_Trypsin — KB cells, trypsin-treated
 │
 └── model/
-    └── mle_grid_fast.py        # 4-parameter MLE + grid search sanity check
+    └── main_code.ipynb       # 4-parameter MLE + grid search sanity check
 ```
 
 ---
@@ -39,8 +39,10 @@ CART-Tumor-ModelRepository/
 ## Model
 
 The tumour cell lifetime is modelled as a right-censored survival process with a parametric hazard rate of the form:
-
-$$d(t;\,\mathbf{v}) = \int_0^t \left[\kappa_a\,e^{-\tilde{\kappa}_a\,\tau}\,N_a(\tau) + \kappa_s\,N_s(\tau)\right] e^{-\gamma(t-\tau)}\,d\tau$$
+$$
+d(t;\,\mathbf{v}) = \kappa_a \int_0^t e^{-\tilde{\kappa}_a\tau}\,v_a(\tau)\,e^{-\gamma(t-\tau)}\,d\tau
++ \kappa_s \int_0^t e^{-\tilde{\kappa}_s\tau}\,v_s(\tau)\,e^{-\gamma(t-\tau)}\,d\tau
+$$
 
 | Parameter | Symbol | Interpretation |
 |---|---|---|
@@ -93,7 +95,7 @@ pip install numpy scipy matplotlib openpyxl
 ### Run the MLE
 
 ```python
-python model/mle_grid_fast.py
+python model/main_code.ipynb
 ```
 
 This will:
